@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-b1z&h$jdehtmuj)52=+dw-#64oru(!n3_y3)*_cj%10h!ld*zz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,5 +132,5 @@ MEDIA_ROOT = (
 )
 
 #Security
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False

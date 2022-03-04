@@ -1,6 +1,6 @@
 <style>
-	.body{
-		.background = rgba(1,1,1,0.7);
+	body{
+		margin: 0 0 0 0;
 	}
 	.page{
 		display : none;
@@ -11,7 +11,8 @@
 	}
 	.center img{
 		height: 100%;
-		width : auto;
+		width : 100%;
+		object-fit: contain;
 	}
 	.default{
 		display : block;
@@ -85,7 +86,7 @@
 
 </style>
 
-
+<body>
 {% for ref in ref_set %}
 	{% if not forloop.first %}
 	<div id="ref_{{ forloop.counter }}" class="page">
@@ -129,4 +130,5 @@
 		<img class="" src={% if ref_set.0.image %}"{{ ref_set.0.image.url}}"{% endif %}/>
 	</div>
 </div>
+</body>
 
