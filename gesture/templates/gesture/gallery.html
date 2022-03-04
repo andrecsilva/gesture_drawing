@@ -1,0 +1,33 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'gesture/css/gallery.css' %}">
+
+{% if page_obj.paginator.num_pages > 1 %}
+<div style="text-align:center" class="pagination">
+	<span class="step-links">
+		{% if page_obj.has_previous %}
+		<a href="?page=1">&laquo; first</a>
+		<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+		{% endif %}
+
+		<span class="current">
+			Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		</span>
+
+		{% if page_obj.has_next %}
+		<a href="?page={{ page_obj.next_page_number }}">next</a>
+		<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+		{% endif %}
+	</span>
+</div>
+{% endif %}
+
+<div class="gallery">
+{% for ref in page_obj %}
+	<div class="column">
+		<a href="{% url 'gesture:reference' ref.id %}"> <img src={% if ref.image %}"{{ ref.image.url }}" {% endif %} /> </a>
+	</div>
+{% empty %}
+	Gallery is empty!
+{% endfor %} 
+</div>

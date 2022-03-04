@@ -1,0 +1,41 @@
+<div style="text-align:center">
+	<h1> {{ tag.name }} ({{ ref_count }}) </h1>
+</div>
+
+<style>
+	
+	.row {
+	  display: flex;
+	  flex-wrap: wrap;
+	  padding: 0 4px;
+	}
+	
+	.gallery{
+	}
+
+	/* Create four equal columns that sits next to each other */
+	.column {
+	}
+
+	.column:hover{
+		border: 2px solid #fc2a0a;
+	}
+
+	.column img {
+	  margin-top: 8px;
+	  vertical-align: middle;
+	  width: 100%;
+	  height: auto;
+	}
+
+</style>
+
+<div class="gallery">
+{% for ref in ref_set %}
+	<div class="column">
+		<a href="{% url 'gesture:reference' ref.id %}"> <img src={% if ref.image %}"{{ ref.image.url }}" {% endif %} /> </a>
+	</div>
+{% empty %}
+	No references with this tag.
+{% endfor %} 
+</div>

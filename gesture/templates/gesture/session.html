@@ -1,0 +1,132 @@
+<style>
+	.body{
+		.background = rgba(1,1,1,0.7);
+	}
+	.page{
+		display : none;
+	}
+	.center {
+	  vertical-align: middle;
+	  text-align: center;
+	}
+	.center img{
+		height: 100%;
+		width : auto;
+	}
+	.default{
+		display : block;
+	}
+	.default .overlay{
+		display : block;
+	}
+	:target{
+		display : block;
+	}
+	:target .overlay{
+		display : block;
+	}
+	:target ~ .default {
+		display : none;
+	}
+	:target ~ .default .overlay{
+		display : none;
+	}
+
+	.overlay a:hover .left{
+		background: rgba(1,1,1,0.2);
+		text-align: left;
+	}
+	.overlay a:hover .left span{
+		visibility:visible;
+	}
+	.overlay a:hover .right{
+		background: rgba(1,1,1,0.2);
+		text-align: right;
+	}
+	.overlay a:hover .right span{
+		visibility:visible;
+	}
+
+	.overlay {
+		position: fixed; /* Sit on top of the page content */
+		display: none; /* Hidden by default */
+		width: 100%; /* Full width (cover the whole page) */
+		height: 100%; /* Full height (cover the whole page) */
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 0; /* Specify a stack order in case you're using a different order for other elements */
+	}
+	/* Split the screen in half */
+	.split {
+		height: 100%;
+		width: 50%;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		overflow-x: hidden;
+		padding-top: 20px;
+	}
+
+	/* Control the left side */
+	.left {
+		left: 0;
+	}
+
+	.split span{
+		visibility:hidden;
+	}
+
+	/* Control the right side */
+	.right {
+		right: 0;
+	}
+
+</style>
+
+
+{% for ref in ref_set %}
+	{% if not forloop.first %}
+	<div id="ref_{{ forloop.counter }}" class="page">
+		<div class="overlay">
+			<a href="#ref_{{ forloop.counter|add:"-1" }}">
+				<div class="split left">
+					<span> Click for the previous image </span>
+				</div>
+			</a>
+
+			{% if forloop.last %}
+			<a href="{% url 'gesture:index' %}{# url gesture:session_end #}"> 
+			{% else %}
+				<a href="#ref_{{ forloop.counter|add:"1" }}">
+
+			{% endif %}
+				<div class="split right">
+					<span> Click for the next image </span>
+				</div> 
+			</a>
+		</div>
+		<div class="center">
+			<img class="" src={% if ref.image %}"{{ ref.image.url}}"{% endif %}/>
+		</div>
+	{% endif %}
+	</div>
+{% endfor %}
+
+<div id="ref_1" class="page default">
+	<div class="overlay">
+		{% if ref_count > 1 %}
+		<a href="#ref_2">
+
+		{% endif %}
+			<div class="split right">
+				<span> Click for the next image </span>
+			</div> 
+		</a>
+	</div>
+	<div class="center">
+		<img class="" src={% if ref_set.0.image %}"{{ ref_set.0.image.url}}"{% endif %}/>
+	</div>
+</div>
+

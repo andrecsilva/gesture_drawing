@@ -1,0 +1,20 @@
+<form action="{% url 'gesture:session' %}" method="post"> 
+	{% csrf_token %}
+	{{ session_form.as_p }}
+	<!--<label for="n_ref_field">Enter number of references: </label> 
+	<input id="n_ref_field" type="text" name="n_ref" value="5">!-->
+	<input type="submit" value="OK">
+</form>
+
+
+{% if error_message %}<p><strong style="color:red">{{ error_message }}</strong></p>{% endif %}
+
+{# <a href={% url 'gesture:session' %}> Start session </a> #}
+<br>
+<a href={% url 'gesture:tag_list' %}> View list of all tags </a>
+<br>
+<a href={# url 'gesture:user' #}> View statistics </a>
+<br>
+<a href={% url 'gesture:untagged_refs' %}> View untagged references </a>
+
+{# add a list of recently drawn pictures here, maybe ten or so #}
