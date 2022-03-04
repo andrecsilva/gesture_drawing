@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Reference,Tag
-from .forms import SessionForm
+from .forms import SessionForm,NewTagForm
 
 from django.template import loader
 from django.template.response import TemplateResponse
@@ -82,6 +82,14 @@ def session(request):
     else:
         return HttpResponseRedirect(reverse('gesture:index'));
 
+def add_new_tag(request):
+    tag_name = request.POST['tag_name']
+    tag_description = request.POST['tag_description']
+    t = Tag(name=tag_name,description=tag_description)
+    t.save()
+
+    return HttpResponseRedirect(reverse('gesture:tag_list'));
+
 def add_tag_to_ref(request,ref_id):
     tags_id = request.POST.getlist('tags_id')
 
@@ -112,6 +120,8 @@ class TagListView(ListView):
 
     def get_context_data(self,**kwargs):
         context = super(TagListView,self).get_context_data(**kwargs)
+        new_tag_form = NewTagForm()
         context['tag_count'] = Tag.objects.count()
+        context['new_tag_form'] = new_tag_form
         return context
 

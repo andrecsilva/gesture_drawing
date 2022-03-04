@@ -16,5 +16,6 @@ urlpatterns = [
         path('add_tag_to_ref/<int:ref_id>', views.add_tag_to_ref ,name='add_tag_to_ref'),
         path('remove_tag_from_ref/<int:ref_id>', views.remove_tag_from_ref ,name='remove_tag_from_ref'),
         path('untagged_refs', views.untagged_refs, name='untagged_refs'),
+        path('add_new_tag', views.add_new_tag ,name='add_new_tag'),
 ] 
 #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
